@@ -11,8 +11,8 @@
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
   <link
-  href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-  rel="stylesheet">
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
   <link href="./favicon.ico" rel="icon">
   <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
@@ -27,9 +27,9 @@
 <body class="index-page">
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
-      <nav id="navmenu" class="navmenu">
+      <nav id="navMenu" class="navMenu">
         <ul>
-          <li><a href="#about" class="active">Home</a></li>
+          <li><a href="#home" class="active">Home</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -38,7 +38,7 @@
   </header>
 
   <main class="main">
-    <section id="about" class="about section custom-padding-top">
+    <section id="home" class="about section custom-padding-top">
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="row gy-5">
           <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="150">
@@ -52,8 +52,18 @@
               </div>
 
               <div class="profile-actions">
-                <a href="assets/files/Alex_Sanderson_Resume_2025.pdf" class="btn-primary"
-                  download="Alex_Sanderson_Resume_2025.pdf"><i class="bi bi-download"></i> Download CV</a>
+                <div class="dropdown">
+                  <a class="btn-primary dropdown-toggle" type="button" id="resumeDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-download"></i> Download CV
+                </a>
+                  <ul class="dropdown-menu" aria-labelledby="resumeDropdown">
+                    <li><a class="dropdown-item" href="assets/files/Alex_Sanderson_Resume_2025.pdf"
+                        download="Alex_Sanderson_Resume_2025.pdf">General Resume</a></li>
+                    <li><a class="dropdown-item" href="assets/files/Alex_Sanderson_Resume_Extended_2025.pdf"
+                        download="Alex_Sanderson_Resume_Extended_2025.pdf">Extended Resume</a></li>
+                  </ul>
+                </div>
               </div>
 
               <div class="social-connect">
