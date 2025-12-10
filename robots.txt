@@ -1,0 +1,20 @@
+# robots.txt for vexelior.github.io
+
+User-agent: *
+Allow: /
+
+# Disallow common directories that shouldn't be crawled
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /*.json$
+Disallow: /*.xml$
+
+# Allow search engines to crawl all other content
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.gif$
+
+# Sitemap location (update with your actual sitemap URL)
+Sitemap: https://vexelior.github.io/sitemap.xml
