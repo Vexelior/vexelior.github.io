@@ -100,6 +100,10 @@
   document.addEventListener('scroll', toggleScrollTop);
 
   function aosInit() {
+    // Respect users who prefer reduced motion
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
     AOS.init({
       duration: 600,
       easing: 'ease-in-out',
@@ -112,6 +116,5 @@
     if (y) y.textContent = new Date().getFullYear();
   }
   window.addEventListener('load', setFooterYear);
-  (function () { var y = document.getElementById('footer-year'); if (y) y.textContent = new Date().getFullYear(); })();
   window.addEventListener('load', aosInit);
 }());

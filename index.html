@@ -8,6 +8,19 @@
   <meta name="description"
     content="Alex Sanderson's personal portfolio website showcasing projects and skills as a software developer.">
   <meta name="keywords" content="Software Developer, Portfolio, Alex Sanderson, Projects, Skills">
+  <link rel="canonical" href="https://vexelior.github.io/">
+  <meta property="og:title" content="Alex Sanderson | Software Developer">
+  <meta property="og:description"
+    content="Portfolio of Alex Sanderson — Full Stack Developer. Projects, contact and resume.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vexelior.github.io/">
+  <meta property="og:image" content="https://vexelior.github.io/assets/img/Profile.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Alex Sanderson | Software Developer">
+  <meta name="twitter:description"
+    content="Portfolio of Alex Sanderson — Full Stack Developer. Projects, contact and resume.">
+  <meta name="twitter:image" content="https://vexelior.github.io/assets/img/Profile.webp">
+  <meta name="theme-color" content="#3863f1">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
   <link
@@ -45,7 +58,8 @@
             <div class="profile-card">
               <div class="profile-header">
                 <div class="profile-avatar">
-                  <img src="./assets/img/Profile.webp" class="img-fluid" alt="Alex Sanderson profile picture">
+                  <img src="./assets/img/Profile.webp" class="img-fluid" alt="Alex Sanderson profile picture"
+                    width="140" height="140" decoding="async">
                 </div>
                 <h3>Alex Sanderson</h3>
                 <span class="role">Full Stack Developer</span>
@@ -53,15 +67,13 @@
 
               <div class="profile-actions">
                 <div class="dropdown">
-                  <a class="btn-primary dropdown-toggle" type="button" id="resumeDropdown"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+                  <a class="btn-primary dropdown-toggle" type="button" id="resumeDropdown" data-bs-toggle="dropdown"
+                    aria-expanded="false">
                     <i class="bi bi-download"></i> Download CV
-                </a>
+                  </a>
                   <ul class="dropdown-menu" aria-labelledby="resumeDropdown">
-                    <li><a class="dropdown-item" href="assets/files/Alex_Sanderson_Resume_2025.pdf"
-                        download="Alex_Sanderson_Resume_2025.pdf">General Resume</a></li>
-                    <li><a class="dropdown-item" href="assets/files/Alex_Sanderson_Resume_Extended_2025.pdf"
-                        download="Alex_Sanderson_Resume_Extended_2025.pdf">Extended Resume</a></li>
+                    <li><a class="dropdown-item" href="assets/files/Alex_Sanderson_Resume_2026.pdf"
+                        download="Alex_Sanderson_Resume_2026.pdf">General Resume</a></li>
                   </ul>
                 </div>
               </div>
@@ -69,8 +81,9 @@
               <div class="social-connect">
                 <a href="mailto:asanderson1994s@gmail.com"><i class="bi bi-envelope"></i></a>
                 <a href="tel:+1-360-281-9758"><i class="bi bi-phone"></i></a>
-                <a href="https://github.com/Vexelior" target="_blank" rel="noopener"><i class="bi bi-github"></i></a>
-                <a href="https://www.linkedin.com/in/asanderson94/" target="_blank" rel="noopener"><i
+                <a href="https://github.com/Vexelior" target="_blank" rel="noopener noreferrer"><i
+                    class="bi bi-github"></i></a>
+                <a href="https://www.linkedin.com/in/asanderson94/" target="_blank" rel="noopener noreferrer"><i
                     class="bi bi-linkedin"></i></a>
               </div>
             </div>
@@ -135,10 +148,14 @@
             <form action="https://formspree.io/f/mpwvlanp" method="post" class="email-form">
               <div class="row gy-4">
                 <div class="col-md-12">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                  <label class="visually-hidden" for="contact-email">Email</label>
+                  <input id="contact-email" type="email" class="form-control" name="email" placeholder="Your Email"
+                    required="">
                 </div>
                 <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+                  <label class="visually-hidden" for="contact-message">Message</label>
+                  <textarea id="contact-message" class="form-control" name="message" rows="6" placeholder="Message"
+                    required=""></textarea>
                 </div>
                 <button type="submit">Send Message</button>
               </div>
