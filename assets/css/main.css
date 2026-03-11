@@ -723,6 +723,21 @@ section,
   transform: translateY(-3px);
 }
 
+/* Profile header compact icons */
+.about .profile-card .header-icons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.about .profile-card .header-icons svg {
+  width: 25px;
+  height: 25x;
+  fill: var(--accent-color);
+  transition: all 0.3s ease;
+}
+
 .about .content-wrapper .bio-section {
   margin-bottom: 50px;
 }
@@ -1042,4 +1057,101 @@ section,
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Skills section */
+.skills .section-title .subtitle {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.skills-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 8px;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.skill-tag {
+  display: inline-block;
+  padding: 6px 10px;
+  background: color-mix(in srgb, var(--default-color), transparent 92%);
+  color: var(--default-color);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.skill-item {
+  background: var(--surface-color);
+  padding: 16px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 92%);
+}
+
+.skill-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.skill-percent {
+  color: color-mix(in srgb, var(--default-color), transparent 50%);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.skill-bar {
+  background: color-mix(in srgb, var(--default-color), transparent 92%);
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-color), color-mix(in srgb, var(--accent-color), #ff6b9d 40%));
+  width: 0;
+  transition: width 700ms ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .skill-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Skill icons sizing */
+.skill-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.skill-icon-sm {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.skill-meta-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
