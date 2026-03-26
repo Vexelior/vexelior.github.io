@@ -111,6 +111,155 @@
       mirror: false
     });
   }
+  /* ── GitHub Projects ─────────────────────────────── */
+
+  const GITHUB_USER = 'Vexelior';
+  const PROJECTS_CONTAINER_ID = 'projects-container';
+
+  /** Language → colour map (GitHub-style dot colours) */
+  const langColors = {
+    JavaScript: '#f1e05a',
+    HTML: '#e34c26',
+    CSS: '#563d7c',
+    Python: '#3572A5',
+    'C#': '#178600',
+    TypeScript: '#3178c6',
+    Java: '#b07219',
+    Shell: '#89e051',
+  };
+
+  /**
+   * Build a single project-card element from a GitHub repo object.
+   * Re-uses the existing .project-card / .project-tags classes.
+   */
+  function buildProjectCard(repo, delay) {
+    const card = document.createElement('div');
+    card.className = 'project-card';
+    card.setAttribute('data-aos', 'fade-up');
+    card.setAttribute('data-aos-delay', String(delay));
+
+    const header = document.createElement('div');
+    header.className = 'project-card-header';
+    header.innerHTML = '<i class="bi bi-folder2-open project-icon"></i>';
+
+    const links = document.createElement('div');
+    links.className = 'project-links';
+
+    const ghLink = document.createElement('a');
+    ghLink.href = repo.html_url;
+    ghLink.target = '_blank';
+    ghLink.rel = 'noopener noreferrer';
+    ghLink.setAttribute('aria-label', 'View ' + repo.name + ' on GitHub');
+    ghLink.innerHTML = '<i class="bi bi-github"></i>';
+    links.appendChild(ghLink);
+
+    if (repo.homepage) {
+      const liveLink = document.createElement('a');
+      liveLink.href = repo.homepage;
+      liveLink.target = '_blank';
+      liveLink.rel = 'noopener noreferrer';
+      liveLink.setAttribute('aria-label', 'View live site');
+      liveLink.innerHTML = '<i class="bi bi-box-arrow-up-right"></i>';
+      links.appendChild(liveLink);
+    }
+
+    header.appendChild(links);
+    card.appendChild(header);
+
+    const title = document.createElement('h3');
+    title.textContent = formatRepoName(repo.name);
+    card.appendChild(title);
+
+    const desc = document.createElement('p');
+    desc.textContent = repo.description || 'No description provided.';
+    card.appendChild(desc);
+
+    const tags = document.createElement('div');
+    tags.className = 'project-tags';
+
+    if (repo.language) {
+      const lang = document.createElement('span');
+      const color = langColors[repo.language] || '#ccc';
+      lang.innerHTML =
+        '<span class="lang-dot" style="background:' + color + '"></span> ' +
+        repo.language;
+      tags.appendChild(lang);
+    }
+
+    (repo.topics || []).slice(0, 5).forEach(function (topic) {
+      const t = document.createElement('span');
+      t.textContent = topic;
+      tags.appendChild(t);
+    });
+
+    if (repo.stargazers_count > 0) {
+      const star = document.createElement('span');
+      star.innerHTML = '<i class="bi bi-star-fill"></i> ' + repo.stargazers_count;
+      tags.appendChild(star);
+    }
+
+    card.appendChild(tags);
+    return card;
+  }
+
+  /** Convert "My-Repo-Name" → "My Repo Name" */
+  function formatRepoName(name) {
+    return name.replace(/[-_]/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+  }
+
+  /** Render all project cards into the container */
+  function renderProjects(repos) {
+    var container = document.getElementById(PROJECTS_CONTAINER_ID);
+    if (!container) return;
+    container.innerHTML = '';
+
+    if (!repos.length) {
+      container.innerHTML =
+        '<p class="projects-empty">No public repositories found.</p>';
+      return;
+    }
+
+    repos.forEach(function (repo, i) {
+      if (repo.name.toLowerCase().includes('vexelior.github.io')) {
+        return;
+      }
+      container.appendChild(buildProjectCard(repo, 100 + i * 100));
+    });
+
+    if (typeof AOS !== 'undefined') AOS.refreshHard();
+  }
+
+  /** Fetch public repos from the GitHub API */
+  function fetchGitHubProjects() {
+    var container = document.getElementById(PROJECTS_CONTAINER_ID);
+    if (!container) return;
+
+    fetch('https://api.github.com/users/' + GITHUB_USER + '/repos?sort=updated&per_page=30')
+      .then(function (res) {
+        if (!res.ok) throw new Error('GitHub API responded with ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        var repos = data
+          .filter(function (r) { return !r.fork; })
+          .sort(function (a, b) { return new Date(b.pushed_at) - new Date(a.pushed_at); });
+        renderProjects(repos);
+      })
+      .catch(function (err) {
+        console.error('Failed to load GitHub projects:', err);
+        container.innerHTML =
+          '<p class="projects-error">' +
+          '<i class="bi bi-exclamation-triangle"></i> ' +
+          'Unable to load projects. Please visit ' +
+          '<a href="https://github.com/' + GITHUB_USER + '" target="_blank" rel="noopener noreferrer">my GitHub</a> directly.' +
+          '</p>';
+      });
+  }
+
+  window.addEventListener('load', fetchGitHubProjects);
+
+  /* ── /GitHub Projects ──────────────────────────────── */
+
   function setFooterYear() {
     var y = document.getElementById('footer-year');
     if (y) y.textContent = new Date().getFullYear();
