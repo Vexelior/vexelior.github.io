@@ -1,1 +1,28 @@
-[]
+[
+  {
+    "name": "Finent",
+    "description": "A personal budgeting web application that helps you manage income and expenses using the 50/30/20 budget rule, visualize pay periods with an interactive payday calendar, and know exactly how much to set aside from each paycheck.",
+    "html_url": null,
+    "homepage": "https://www.budgetwithfinent.com",
+    "language": "TypeScript",
+    "topics": [
+      "finance",
+      "fintech",
+      "productivity"
+    ],
+    "stargazers_count": 0,
+    "pushed_at": "2026-07-17T18:30:44Z",
+    "private": true
+  },
+  {
+    "name": "MetaLens",
+    "description": "A small full-stack web app: upload any common image format and get its metadata back",
+    "html_url": null,
+    "homepage": "https://imagemetadataextractor.com/",
+    "language": "JavaScript",
+    "topics": [],
+    "stargazers_count": 0,
+    "pushed_at": "2026-07-17T14:10:14Z",
+    "private": true
+  }
+]
