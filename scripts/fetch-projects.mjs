@@ -62,11 +62,25 @@ const published = all
     private: r.private,
   }));
 
-const skipped = all.length - published.length;
-console.log(
-  `Publishing ${published.length} repo(s) tagged "${OPT_IN_TOPIC}" ` +
-    `(${published.filter((r) => r.private).length} private); skipped ${skipped} untagged/fork/archived.`
-);
+// Diagnostics: a token scoped to the wrong owner, or to "only select
+// repositories", shows up here as an implausibly low visible count.
+const visiblePrivate = all.filter((r) => r.private).length;
+console.log(`Token sees ${all.length} repo(s): ${visiblePrivate} private, ${all.length - visiblePrivate} public.`);
+
+const topics = [...new Set(all.flatMap((r) => r.topics || []))].sort();
+console.log(`Topics across those repos: ${topics.length ? topics.join(', ') : '(none)'}`);
+
+if (!published.length) {
+  console.log(
+    `No repo carries the "${OPT_IN_TOPIC}" topic, so nothing will be published. ` +
+      `Add the topic to a repo, or check the token's repository access if the count above looks too low.`
+  );
+} else {
+  console.log(
+    `Publishing ${published.length} repo(s) tagged "${OPT_IN_TOPIC}" ` +
+      `(${published.filter((r) => r.private).length} private).`
+  );
+}
 
 await mkdir('assets/data', { recursive: true });
 await writeFile(OUT_FILE, JSON.stringify(published, null, 2) + '\n');
