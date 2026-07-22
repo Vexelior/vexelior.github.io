@@ -1285,6 +1285,12 @@ section,
   color: var(--accent-color) !important;
 }
 
+.project-card-header .project-links .project-private {
+  font-size: 20px;
+  color: color-mix(in srgb, var(--default-color), transparent 45%);
+  cursor: help;
+}
+
 .project-card h3 {
   font-size: 20px;
   font-weight: 700;

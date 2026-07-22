@@ -115,6 +115,7 @@
 
   const GITHUB_USER = 'Vexelior';
   const PROJECTS_CONTAINER_ID = 'projects-container';
+  const PROJECTS_DATA_URL = 'assets/data/projects.json';
 
   /** Language → colour map (GitHub-style dot colours) */
   const langColors = {
@@ -145,13 +146,22 @@
     const links = document.createElement('div');
     links.className = 'project-links';
 
-    const ghLink = document.createElement('a');
-    ghLink.href = repo.html_url;
-    ghLink.target = '_blank';
-    ghLink.rel = 'noopener noreferrer';
-    ghLink.setAttribute('aria-label', 'View ' + repo.name + ' on GitHub');
-    ghLink.innerHTML = '<i class="bi bi-github"></i>';
-    links.appendChild(ghLink);
+    // Private repos ship without a URL — a link would 404 for visitors.
+    if (repo.html_url) {
+      const ghLink = document.createElement('a');
+      ghLink.href = repo.html_url;
+      ghLink.target = '_blank';
+      ghLink.rel = 'noopener noreferrer';
+      ghLink.setAttribute('aria-label', 'View ' + repo.name + ' on GitHub');
+      ghLink.innerHTML = '<i class="bi bi-github"></i>';
+      links.appendChild(ghLink);
+    } else {
+      const lock = document.createElement('span');
+      lock.className = 'project-private';
+      lock.title = 'Private repository';
+      lock.innerHTML = '<i class="bi bi-lock-fill"></i>';
+      links.appendChild(lock);
+    }
 
     if (repo.homepage) {
       const liveLink = document.createElement('a');
@@ -229,21 +239,40 @@
     if (typeof AOS !== 'undefined') AOS.refreshHard();
   }
 
-  /** Fetch public repos from the GitHub API */
-  function fetchGitHubProjects() {
-    var container = document.getElementById(PROJECTS_CONTAINER_ID);
-    if (!container) return;
-
-    fetch('https://api.github.com/users/' + GITHUB_USER + '/repos?sort=updated&per_page=30')
+  /** Fall back to the public API if the generated data file isn't there yet */
+  function fetchPublicRepos() {
+    return fetch('https://api.github.com/users/' + GITHUB_USER + '/repos?sort=updated&per_page=30')
       .then(function (res) {
         if (!res.ok) throw new Error('GitHub API responded with ' + res.status);
         return res.json();
       })
       .then(function (data) {
-        var repos = data
-          .filter(function (r) { return !r.fork; })
-          .sort(function (a, b) { return new Date(b.pushed_at) - new Date(a.pushed_at); });
-        renderProjects(repos);
+        return data.filter(function (r) { return !r.fork; });
+      });
+  }
+
+  /**
+   * Load projects from the data file built by .github/workflows/update-projects.yml,
+   * which includes private repos tagged with the opt-in topic.
+   */
+  function fetchGitHubProjects() {
+    var container = document.getElementById(PROJECTS_CONTAINER_ID);
+    if (!container) return;
+
+    fetch(PROJECTS_DATA_URL, { cache: 'no-cache' })
+      .then(function (res) {
+        if (!res.ok) throw new Error('projects.json responded with ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        if (!Array.isArray(data) || !data.length) throw new Error('projects.json is empty');
+        return data;
+      })
+      .catch(fetchPublicRepos)
+      .then(function (repos) {
+        renderProjects(
+          repos.sort(function (a, b) { return new Date(b.pushed_at) - new Date(a.pushed_at); })
+        );
       })
       .catch(function (err) {
         console.error('Failed to load GitHub projects:', err);
