@@ -155,12 +155,6 @@
       ghLink.setAttribute('aria-label', 'View ' + repo.name + ' on GitHub');
       ghLink.innerHTML = '<i class="bi bi-github"></i>';
       links.appendChild(ghLink);
-    } else {
-      const lock = document.createElement('span');
-      lock.className = 'project-private';
-      lock.title = 'Private repository';
-      lock.innerHTML = '<i class="bi bi-lock-fill"></i>';
-      links.appendChild(lock);
     }
 
     if (repo.homepage) {
