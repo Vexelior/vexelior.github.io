@@ -54,14 +54,66 @@
     mobileNavToggleBtn.addEventListener('click', mobileNavToggle);
   }
 
+  /* ── Scroll spy ───────────────────────────────────
+   * The "active" class starts out hardcoded on Home in the markup; nothing
+   * moved it, so Home stayed lit no matter where you were on the page.
+   */
+
+  const navLinks = Array.from(document.querySelectorAll('#navMenu a[href^="#"]'));
+  const spyTargets = navLinks
+    .map(link => ({ link: link, section: document.querySelector(link.getAttribute('href')) }))
+    .filter(target => target.section);
+
+  // While a click-triggered smooth scroll is in flight we ignore scroll events,
+  // otherwise every section it passes over lights up on the way there.
+  let spyLockedUntil = 0;
+
+  function setActiveLink(active) {
+    navLinks.forEach(function (link) {
+      link.classList.toggle('active', link === active);
+    });
+  }
+
+  function syncActiveLink() {
+    if (!spyTargets.length || Date.now() < spyLockedUntil) return;
+
+    const header = document.querySelector('#header');
+    // Header height shifts between its scrolled and unscrolled states, so read
+    // it live and add a small buffer to clear the sections' scroll-margin-top.
+    const line = window.scrollY + (header ? header.offsetHeight : 0) + 24;
+    const atBottom =
+      window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+
+    // The last section can be shorter than the viewport, so its top may never
+    // cross the line. At the bottom of the page it's the current one regardless.
+    let current = spyTargets[0];
+    if (atBottom) {
+      current = spyTargets[spyTargets.length - 1];
+    } else {
+      spyTargets.forEach(function (target) {
+        const top = target.section.getBoundingClientRect().top + window.scrollY;
+        if (top <= line) current = target;
+      });
+    }
+
+    setActiveLink(current.link);
+  }
+
   document.querySelectorAll('#navMenu a').forEach(navMenu => {
     navMenu.addEventListener('click', () => {
       if (document.querySelector('.mobile-nav-active')) {
         mobileNavToggle();
       }
+      if (navMenu.getAttribute('href') && navMenu.getAttribute('href').charAt(0) === '#') {
+        setActiveLink(navMenu);
+        spyLockedUntil = Date.now() + 700;
+      }
     });
-
   });
+
+  window.addEventListener('load', syncActiveLink);
+  document.addEventListener('scroll', syncActiveLink, { passive: true });
+  window.addEventListener('resize', debounce(syncActiveLink, 100), { passive: true });
 
   document.querySelectorAll('.navMenu .toggle-dropdown').forEach(navMenu => {
     navMenu.addEventListener('click', function (e) {
@@ -117,16 +169,44 @@
   const PROJECTS_CONTAINER_ID = 'projects-container';
   const PROJECTS_DATA_URL = 'assets/data/projects.json';
 
-  /** Language → colour map (GitHub-style dot colours) */
+  /**
+   * Language → vendored Devicon logo (assets/img/lang/*.svg), in the language's
+   * official brand colours.
+   */
+  const langIcons = {
+    JavaScript: 'javascript',
+    TypeScript: 'typescript',
+    HTML: 'html5',
+    CSS: 'css3',
+    Python: 'python',
+    'C#': 'csharp',
+    Java: 'java',
+    Shell: 'bash',
+    Go: 'go',
+    Rust: 'rust',
+    PHP: 'php',
+    Ruby: 'ruby',
+    'C++': 'cplusplus',
+    C: 'c',
+  };
+
+  /**
+   * Fallback dot colours for languages with no vendored logo — GitHub's own
+   * linguist colours, to match the brand-accurate icons above.
+   */
   const langColors = {
-    JavaScript: '#f1e05a',
-    HTML: '#e34c26',
-    CSS: '#563d7c',
-    Python: '#3572A5',
-    'C#': '#178600',
-    TypeScript: '#3178c6',
-    Java: '#b07219',
-    Shell: '#89e051',
+    Kotlin: '#A97BFF',
+    Swift: '#F05138',
+    Dart: '#00B4AB',
+    Vue: '#41B883',
+    Svelte: '#FF3E00',
+    PowerShell: '#012456',
+    'Jupyter Notebook': '#DA5B0B',
+    SCSS: '#C6538C',
+    Lua: '#000080',
+    Dockerfile: '#384D54',
+    Makefile: '#427819',
+    Batchfile: '#C1F12E',
   };
 
   /**
@@ -183,10 +263,34 @@
 
     if (repo.language) {
       const lang = document.createElement('span');
-      const color = langColors[repo.language] || '#ccc';
-      lang.innerHTML =
-        '<span class="lang-dot" style="background:' + color + '"></span> ' +
-        repo.language;
+      lang.className = 'project-lang';
+      const slug = langIcons[repo.language];
+
+      if (slug) {
+        // Brand colours are built for light backgrounds — Rust's mark has no
+        // fill at all and renders black, bash's is near-black. The tile keeps
+        // every logo legible on the dark card without recolouring it.
+        const chip = document.createElement('span');
+        chip.className = 'lang-chip';
+
+        const icon = document.createElement('img');
+        icon.className = 'lang-icon';
+        icon.src = 'assets/img/lang/' + slug + '.svg';
+        icon.alt = '';
+        icon.width = 13;
+        icon.height = 13;
+        icon.decoding = 'async';
+
+        chip.appendChild(icon);
+        lang.appendChild(chip);
+      } else {
+        const dot = document.createElement('span');
+        dot.className = 'lang-dot';
+        dot.style.background = langColors[repo.language] || '#a6947e';
+        lang.appendChild(dot);
+      }
+
+      lang.appendChild(document.createTextNode(repo.language));
       tags.appendChild(lang);
     }
 
