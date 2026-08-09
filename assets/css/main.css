@@ -1559,7 +1559,6 @@ section,
   padding: 0;
   border: 0;
   border-radius: var(--radius);
-  background: var(--mm-alabaster);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1567,8 +1566,8 @@ section,
 }
 
 .project-tags .lang-icon {
-  width: 13px;
-  height: 13px;
+  width: 20px;
+  height: 20px;
   display: block;
   object-fit: contain;
 }
