@@ -1,5 +1,16 @@
 [
   {
+    "name": "ADO-Portal",
+    "description": "A read-only web app for reporting on Azure DevOps work items.",
+    "html_url": null,
+    "homepage": "https://adoportal.vercel.app",
+    "language": "TypeScript",
+    "topics": [],
+    "stargazers_count": 0,
+    "pushed_at": "2026-09-23T13:34:13Z",
+    "private": true
+  },
+  {
     "name": "Finent",
     "description": "Finent is a personal-finance and budgeting web app built around your paycheck, not the calendar month. Instead of a flat monthly summary, it organizes your money around each pay period — telling you exactly what's due before your next payday, how much to set aside, and how much is genuinely free to spend.",
     "html_url": null,
@@ -8,17 +19,6 @@
     "topics": [],
     "stargazers_count": 0,
     "pushed_at": "2026-09-21T17:00:43Z",
-    "private": true
-  },
-  {
-    "name": "ADO-Portal",
-    "description": "A read-only web app for reporting on Azure DevOps work items.",
-    "html_url": null,
-    "homepage": "https://adoportal.vercel.app",
-    "language": "TypeScript",
-    "topics": [],
-    "stargazers_count": 0,
-    "pushed_at": "2026-09-21T16:54:39Z",
     "private": true
   },
   {
