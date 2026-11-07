@@ -1,5 +1,27 @@
 [
   {
+    "name": "Finent",
+    "description": "Finent is a personal-finance and budgeting web app built around your paycheck, not the calendar month. Instead of a flat monthly summary, it organizes your money around each pay period — telling you exactly what's due before your next payday, how much to set aside, and how much is genuinely free to spend.",
+    "html_url": null,
+    "homepage": "https://www.budgetwithfinent.com",
+    "language": "TypeScript",
+    "topics": [],
+    "stargazers_count": 0,
+    "pushed_at": "2026-11-07T01:16:01Z",
+    "private": true
+  },
+  {
+    "name": "RetroStation",
+    "description": "A self-hosted, MyRetroTVs-style TV station that turns your video library into live, scheduled channels with commercial breaks, a program guide and on-screen graphics, streamed to every TV in the house. Built with ASP.NET Core (.NET 10) and FFmpeg.",
+    "html_url": null,
+    "homepage": "",
+    "language": "C#",
+    "topics": [],
+    "stargazers_count": 0,
+    "pushed_at": "2026-11-07T00:18:58Z",
+    "private": true
+  },
+  {
     "name": "ADO-Portal",
     "description": "A read-only web app for reporting on Azure DevOps work items.",
     "html_url": null,
@@ -7,7 +29,7 @@
     "language": "TypeScript",
     "topics": [],
     "stargazers_count": 0,
-    "pushed_at": "2026-11-06T00:56:24Z",
+    "pushed_at": "2026-11-06T16:13:17Z",
     "private": true
   },
   {
@@ -20,28 +42,6 @@
     "stargazers_count": 0,
     "pushed_at": "2026-10-26T14:57:44Z",
     "private": false
-  },
-  {
-    "name": "RetroStation",
-    "description": "A self-hosted, MyRetroTVs-style TV station that turns your video library into live, scheduled channels with commercial breaks, a program guide and on-screen graphics, streamed to every TV in the house. Built with ASP.NET Core (.NET 10) and FFmpeg.",
-    "html_url": null,
-    "homepage": "",
-    "language": "C#",
-    "topics": [],
-    "stargazers_count": 0,
-    "pushed_at": "2026-10-24T14:46:32Z",
-    "private": true
-  },
-  {
-    "name": "Finent",
-    "description": "Finent is a personal-finance and budgeting web app built around your paycheck, not the calendar month. Instead of a flat monthly summary, it organizes your money around each pay period — telling you exactly what's due before your next payday, how much to set aside, and how much is genuinely free to spend.",
-    "html_url": null,
-    "homepage": "https://www.budgetwithfinent.com",
-    "language": "TypeScript",
-    "topics": [],
-    "stargazers_count": 0,
-    "pushed_at": "2026-09-21T17:00:43Z",
-    "private": true
   },
   {
     "name": "MetaLens",
